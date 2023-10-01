@@ -1,0 +1,26 @@
+def determine_winner(n, cards):
+    petya_sum = 0
+    vasya_sum = 0
+    cards.sort(reverse=True)  # Сортируем карточки по убыванию
+
+    for i in range(n):
+        if i % 2 == 0:
+            petya_sum += cards[i]  # Петя берет карточку с четным индексом
+        else:
+            vasya_sum += cards[i]  # Вася берет карточку с нечетным индексом
+
+    if petya_sum > vasya_sum:
+        return "Petya"  # Петя побеждает
+    else:
+        return "Vasya"  # Вася побеждает
+
+# Считываем входные данные
+
+n = int(input("Введите общее количество карточек (кратное трём): "))
+cards = list(map(int, input("Введите значения карточек через пробел: ").split()))
+
+# Определяем победителя
+winner = determine_winner(n, cards)
+
+# Выводим результат
+print(winner)
