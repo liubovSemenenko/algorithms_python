@@ -1,0 +1,38 @@
+n = int(input())
+points = []
+
+# Считываем точки и добавляем их в список
+for _ in range(n):
+    x, y = map(int, input().split())
+    points.append((x, y))
+
+# Отсортируем точки по x и y
+points_sorted_by_x = sorted(points, key=lambda p: p[0])
+points_sorted_by_y = sorted(points, key=lambda p: p[1])
+
+# Этот словарь поможет нам отслеживать уже "выброшенные" точки
+points_processed = {p: False for p in points}
+
+steps = 0
+while len(points_processed) > 0:
+    # Находим границы прямоугольника
+    left_x = points_sorted_by_x[0][0]
+    right_x = points_sorted_by_x[-1][0]
+    bottom_y = points_sorted_by_y[0][1]
+    top_y = points_sorted_by_y[-1][1]
+
+    # Удаляем точки на границе прямоугольника из наших списков и из словаря
+    points_sorted_by_x = [p for p in points_sorted_by_x if not (p[0] == left_x or p[0] == right_x)]
+    points_sorted_by_y = [p for p in points_sorted_by_y if not (p[1] == bottom_y or p[1] == top_y)]
+
+    to_remove = []
+    for p, processed in points_processed.items():
+        if p[0] == left_x or p[0] == right_x or p[1] == bottom_y or p[1] == top_y:
+            to_remove.append(p)
+
+    for p in to_remove:
+        del points_processed[p]
+
+    steps += 1
+
+print(steps)
