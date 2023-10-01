@@ -1,5 +1,5 @@
 # Аlgorithms in Python
-Repository with problem statements and their solutions
+Сondition of the problems
 
 Ex.1 "Good sequence"
 
