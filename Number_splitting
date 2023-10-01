@@ -1,0 +1,25 @@
+def split_number(n):
+    s = str(n)
+    max_parts = []
+
+    # Проверим все 2^17 комбинаций разбиений:
+    for mask in range(1 << (len(s) - 1)):
+        parts, start = [], 0
+
+        # Проверим каждый бит в маске:
+        for i in range(len(s) - 1):
+            if (mask >> i) & 1:  # Если бит установлен, разделите число на этом месте
+                parts.append(s[start:i + 1])
+                start = i + 1
+        parts.append(s[start:])
+
+        # Отбросим комбинации с ведущими нулями и неуникальными частями:
+        if all([not p.startswith('0') or p == '0' for p in parts]) and len(set(parts)) == len(parts):
+            if len(parts) > len(max_parts):
+                max_parts = parts
+
+    return '-'.join(max_parts)
+
+
+n = int(input())
+print(split_number(n))
