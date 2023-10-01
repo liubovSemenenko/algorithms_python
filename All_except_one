@@ -1,0 +1,23 @@
+def multiply(p, q):
+    """Применяет перестановку q к p."""
+    return [q[p[i]-1] for i in range(len(p))]
+
+n, m = map(int, input().split())
+perms = [list(map(int, input().split())) for _ in range(m)]
+k = int(input())
+order = list(map(int, input().split()))
+
+# Вычисляем префиксные перестановки
+prefix = [list(range(1, n + 1))]
+for i in range(k):
+    prefix.append(multiply(prefix[-1], perms[order[i] - 1]))
+
+# Вычисляем суффиксные перестановки
+suffix = [list(range(1, n + 1))]
+for i in range(k-1, -1, -1):
+    suffix.insert(0, multiply(perms[order[i] - 1], suffix[0]))
+
+# Выводим ответ
+for i in range(k):
+    result = multiply(suffix[i+1], prefix[i])[0]
+    print(result)
