@@ -1,4 +1,4 @@
-# algorithms_python
+# Аlgorithms in Python
 Repository with problem statements and their solutions
 
 Ex.1 "Good sequence"
