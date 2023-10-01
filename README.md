@@ -1,5 +1,5 @@
 # Аlgorithms in Python
-Сondition of the problems
+Problem statements
 
 Ex.1 "Good sequence"
 
