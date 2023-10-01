@@ -1,0 +1,19 @@
+from itertools import permutations
+
+def is_trivial(points, idx1, idx2):
+    return sorted(points, key=lambda x: (x[idx1], x[idx2])) == points or sorted(points, key=lambda x: (-x[idx1], -x[idx2])) == points
+
+def is_good_permutation(points, perm):
+    perm_points = [points[i] for i in perm]
+    if is_trivial(perm_points, 0, 1) or is_trivial(perm_points, 1, 2) or is_trivial(perm_points, 0, 2):
+        return False
+    return True
+
+n = int(input())
+points = [tuple(map(int, input().split())) for _ in range(n)]
+
+for perm in permutations(range(n)):
+    if sum(perm[i] > perm[i+1] for i in range(n-1)) % 2 == 1:  # check for odd permutation
+        if is_good_permutation(points, perm):
+            print(' '.join(map(lambda x: str(x+1), perm)))
+            break
