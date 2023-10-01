@@ -1,0 +1,33 @@
+def S(n):
+    # Функция S(n) вычисляет сумму цифр числа n.
+    return sum(int(digit) for digit in str(n))
+
+def find_smallest_complex_number(limit):
+    # Функция find_smallest_complex_number находит наименьшее сложное число.
+    # limit - верхний предел для перебора чисел.
+
+    not_complex_numbers = set()  # Множество для хранения чисел, которые не являются сложными
+
+    for k in range(1, limit):
+        numerator = 3 * k
+        denominator = S(k) ** 2
+        n = numerator / denominator
+
+        if n.is_integer():
+            # Если n является целым числом, то добавляем его в множество not_complex_numbers.
+            not_complex_numbers.add(int(n))
+
+    smallest_complex_number = 1
+    while smallest_complex_number in not_complex_numbers:
+        # Находим наименьшее сложное число, которое не находится в множестве not_complex_numbers.
+        smallest_complex_number += 1
+
+    return smallest_complex_number
+
+# Устанавливаем предел для перебора (например, миллион)
+limit = 1000000
+
+# Находим наименьшее сложное число
+result = find_smallest_complex_number(limit)
+
+print("Наименьшее сложное число:", result)
