@@ -1,0 +1,20 @@
+n = int(input())
+a = list(map(int, input().split()))
+
+ops = 0
+while max(a) != min(a):
+    minimum = min(a)
+    for i in range(n):
+        if a[i] > 2 * minimum:
+            times = a[i] // (2 * minimum)
+            a[i] -= times * minimum
+            ops += times
+
+    minimum = min(a)
+    for i in range(n):
+        if a[i] != minimum:
+            a[i] -= minimum
+            ops += 1
+            break
+
+print(ops)
