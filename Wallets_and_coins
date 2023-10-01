@@ -1,0 +1,38 @@
+def can_reconstruct_wallets(wallets, total_money):
+    max_wallet = max(wallets)
+    remaining_money = sum(wallets) - max_wallet
+
+    # Если общая сумма монет меньше или нечетная, то не может быть решения
+    if total_money < max_wallet or (total_money - max_wallet) % 2 != 0:
+        return "No"
+
+    # Создаем массив для хранения возможности разложения монет
+    dp = [False] * (remaining_money + 1)
+    dp[0] = True
+
+    # Проверяем, можем ли разложить монеты в оставшиеся кошельки
+    for wallet in wallets:
+        if wallet == max_wallet:
+            continue
+        for i in range(remaining_money, -1, -1):
+            if dp[i] and i + wallet <= remaining_money:
+                dp[i + wallet] = True
+
+    # Если можно разложить монеты в оставшиеся кошельки, то успешное решение
+    if dp[remaining_money]:
+        return "Yes"
+    else:
+        return "No"
+
+# Ввод количества кошельков
+n = int(input("Введите количество кошельков: "))
+
+# Ввод данных о кошельках
+wallets = list(map(int, input("Введите суммы денег в каждом из кошельков через пробел: ").split()))
+
+# Ввод общей суммы денег
+total_money = int(input("Введите общую сумму денег: "))
+
+# Проверка и вывод результата
+result = can_reconstruct_wallets(wallets, total_money)
+print(result)
